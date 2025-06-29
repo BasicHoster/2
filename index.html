@@ -1,302 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Fire Panel</title>
-    <style>
-        /* General Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #0083B0 0%, #00B4DB 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden; /* Prevent scrolling */
-        }
-
-        .container {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-        }
-
-        .panel {
-            background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            text-align: center;
-            animation: fadeIn 0.5s ease;
-        }
-
-        /* Login Form Styles */
-        h1 {
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        input[type="email"], 
-        input[type="password"] {
-            width: 100%;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            font-size: 16px;
-            margin-bottom: 20px;
-            transition: border-color 0.3s ease;
-        }
-
-        input[type="email"]:focus, 
-        input[type="password"]:focus {
-            border-color: #00B4DB;
-            outline: none;
-        }
-
-        button {
-            padding: 12px 30px;
-            background-color: #00B4DB;
-            border: none;
-            border-radius: 30px;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
-        }
-
-        button:hover {
-            background-color: #0083B0;
-        }
-
-        input[type="checkbox"] {
-            margin-right: 10px;
-        }
-
-        /* Privacy Policy Page Styles */
-        .privacy-policy-page {
-            text-align: center;
-        }
-
-        .privacy-policy-page h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-
-        .privacy-policy-page p {
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            background-color: #00B4DB;
-            border: none;
-            border-radius: 30px;
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn:hover {
-            background-color: #0083B0;
-        }
-
-        /* Fade In/Out Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
-
-        .fade-in {
-            animation: fadeIn 0.5s ease;
-        }
-
-        .fade-out {
-            animation: fadeOut 0.5s ease;
-        }
-
-        /* Feature Page Styles */
-        .feature-panel {
-            text-align: left;
-            background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-height: 80vh; /* Set max height for responsiveness */
-            overflow-y: auto; /* Scroll if content exceeds height */
-            animation: fadeIn 0.5s ease;
-        }
-
-        .feature-panel h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #333;
-        }
-
-        .feature-option {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            background-color: #f4faff;
-            border-radius: 10px;
-            padding: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            transition: background-color 0.3s ease;
-        }
-
-        .feature-option:hover {
-            background-color: #e1f5ff;
-        }
-
-        .feature-option input[type="checkbox"] {
-            margin-right: 15px;
-            width: 20px;
-            height: 20px;
-        }
-
-        .feature-option label {
-            font-size: 16px;
-            color: #333;
-            font-weight: 500;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <title>Open Messenger</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="shortcut icon" href="icon.png" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1f2937;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #4b5563;
+      border-radius: 9999px;
+    }
+  </style>
 </head>
-<body>
-    <div class="container">
-        <div class="panel" id="panel">
-            <!-- Login Form -->
-            <form id="login-form">
-                <h1>Login to Panel</h1>
-                <input type="email" id="email" placeholder="Email" required>
-                <input type="password" id="password" placeholder="Password" required>
-                <button type="submit">See Features</button>
-                <div> <br>
-                    <input type="checkbox" id="privacy-policy" required>
-                    <label for="privacy-policy">I agree to the <a href="#" id="privacy-policy-link">Privacy Policy</a></label>
-                </div>
-            </form>
-        </div>
-    </div>
+<body class="bg-gradient-to-br from-gray-900 to-gray-800 text-white min-h-screen flex items-center justify-center p-4">
+  <!-- NICKNAME FORM -->
+  <div id="nameContainer" class="w-full max-w-md bg-gray-950 rounded-2xl shadow-2xl p-8 space-y-6">
+    <h2 class="text-center text-3xl font-bold">Enter Messenger</h2>
+    <form id="nameForm" class="space-y-4">
+      <div>
+        <label for="nickname" class="block mb-1 font-semibold">Your Name</label>
+        <input id="nickname" type="text" required placeholder="Type your nickname" class="w-full p-3 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      </div>
+      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 rounded py-3 font-bold text-white transition">
+        Enter Chat
+      </button>
+    </form>
+  </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const loginForm = document.getElementById('login-form');
-            const panel = document.getElementById('panel');
-        
-            loginForm.addEventListener('submit', function (event) {
-                event.preventDefault(); // Prevent form submission and page refresh
-        
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-        
-                if (password === '009922') {
-                    // Correct credentials, transition to the feature page
-                    panel.classList.add('fade-out');
-                    
-                    setTimeout(() => {
-                        // Replace panel content with feature page
-                        panel.innerHTML = `
-                            <div class="feature-panel">
-                                <h1>Select Game Features</h1>
-                                <div class="feature-option">
-                                    <input type="checkbox" id="feature-1">
-                                    <label for="feature-1">Enable High Sensitivity</label>
-                                </div>
-                                <div class="feature-option">
-                                    <input type="checkbox" id="feature-2">
-                                    <label for="feature-2">Enable Headshot Rate</label>
-                                </div>
-                                <div class="feature-option">
-                                    <input type="checkbox" id="feature-3">
-                                    <label for="feature-3">Disable Recoil Rate</label>
-                                </div>
-                                <div class="feature-option">
-                                    <input type="checkbox" id="feature-4">
-                                    <label for="feature-4">Disable Lagging Problems</label>
-                                </div>
-                                <div class="feature-option">
-                                    <input type="checkbox" id="feature-5">
-                                    <label for="feature-5">Disable Some Glitches</label>
-                                </div>
-                                <button id="play-game-btn" class="btn">Play Game</button>
-                            </div>
-                        `;
-                        
-                        // Reapply fade-in animation
-                        document.querySelector('.feature-panel').classList.add('fade-in');
-                        
-                        // Remove fade-out class after transition
-                        panel.classList.remove('fade-out');
-                    }, 500); // Match the duration of fade-out animation
-                } else {
-                    alert('Invalid credentials');
-                }
-            });
-        
-            document.addEventListener('click', function (event) {
-                if (event.target && event.target.id === 'play-game-btn') {
-                    // Attempt to launch Free Fire game
-                    const gameUrl = 'game://'; // URL scheme for launching the game
-                    const playStoreUrl = 'https://play.google.com/store/search?q=freefire&c=apps'; // Google Play Store URL
-        
-                    // Create an iframe element to check if the game can be launched
-                    const iframe = document.createElement('iframe');
-                    iframe.style.display = 'none';
-                    iframe.src = gameUrl;
-                    document.body.appendChild(iframe);
-        
-                    // Set a timeout to redirect if the game is not launched
-                    setTimeout(() => {
-                        document.body.removeChild(iframe);
-                        window.location.href = playStoreUrl; // Redirect to Google Play Store
-                    }, 500); // 500ms timeout for redirect (adjust if necessary)
-                }
-            });
-        
-            document.getElementById('privacy-policy-link').addEventListener('click', function (event) {
-                event.preventDefault(); // Prevent default link behavior
-        
-                // Display Privacy Policy in the same tab
-                panel.innerHTML = `
-                    <div class="privacy-policy-page">
-                        <h1>Privacy Policy</h1>
-                        <p>This panel is intended for authorized use only. Please ensure that you follow the guidelines below:</p>
-                        <ul style="text-align:left; margin-left: 40px;">
-                            <li>Do not misuse the panel for unauthorized access or activities.</li>
-                            <li>Follow all safety protocols and regulations to avoid security issues.</li>
-                            <li>Your data is secure but ensure you are mindful of your login credentials.</li>
-                            <li>If any security breaches occur, appropriate actions will be taken.</li>
-                            <li>Respect other users of the platform and the game guidelines.</li>
-                        </ul>
-                        <p>Any violation of these guidelines could result in penalties or being restricted from using the platform.</p>
-                        <button id="back-to-login" class="btn">Back to Login</button>
-                    </div>
-                `;
-                
-                document.getElementById('back-to-login').addEventListener('click', function () {
-                    // Reload the page to return to the login form
-                    location.reload(); // This will return to the login form
-                });
-            });
+  <!-- CHAT UI -->
+  <div id="chatContainer" class="hidden w-full max-w-md mx-auto bg-gray-950 rounded-2xl shadow-2xl flex flex-col h-[90vh] min-h-[400px]">
+    <div class="flex items-center justify-between bg-gray-800 py-4 px-6 rounded-t-2xl">
+      <div class="text-2xl font-bold" id="userDisplayName">Messenger</div>
+    </div>
+    <div id="chat" class="flex-1 overflow-y-auto p-4 space-y-2 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900"></div>
+    <form id="messageForm" class="p-4 bg-gray-800 flex gap-2" autocomplete="off">
+      <input id="messageInput" type="text" placeholder="Type your message..." class="flex-1 p-2 rounded text-black" required />
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded font-bold select-none">Send</button>
+    </form>
+  </div>
+
+  <audio id="notifSound" src="https://www.myinstants.com/media/sounds/message-pop-alert.mp3" preload="auto"></audio>
+
+  <script>
+    window.onload = function () {
+      const firebaseConfig = {
+        apiKey: "AIzaSyB69j4jjK3p6Q_IFzkHbf3qUt_GT3J-QWE",
+        authDomain: "ssss-a41c4.firebaseapp.com",
+        databaseURL: "https://ssss-a41c4-default-rtdb.firebaseio.com",
+        projectId: "ssss-a41c4",
+        storageBucket: "ssss-a41c4.firebasestorage.app",
+        messagingSenderId: "32645384260",
+        appId: "1:32645384260:web:6bb5f89729b0acc9039411",
+        measurementId: "G-SRGDLQ1BL6"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.database();
+      const chatRef = db.ref("messages");
+
+      const nameContainer = document.getElementById("nameContainer");
+      const nameForm = document.getElementById("nameForm");
+      const nicknameInput = document.getElementById("nickname");
+
+      const chatContainer = document.getElementById("chatContainer");
+      const userDisplayName = document.getElementById("userDisplayName");
+      const chatDiv = document.getElementById("chat");
+      const messageForm = document.getElementById("messageForm");
+      const messageInput = document.getElementById("messageInput");
+      const notifSound = document.getElementById("notifSound");
+
+      let currentNickname = "Anonymous";
+
+      // Ask permission for notifications
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+      }
+
+      function sendSystemNotification(title, message) {
+        if (Notification.permission === "granted") {
+          new Notification(title, {
+            body: message,
+            icon: "icon.png"
+          });
+        }
+      }
+
+      function shortenMessage(text) {
+        const words = text.split(" ");
+        return words.length > 4 ? words.slice(0, 4).join(" ") + "..." : text;
+      }
+
+      nameForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        currentNickname = nicknameInput.value.trim() || "Anonymous";
+        nameContainer.style.display = "none";
+        chatContainer.style.display = "flex";
+        userDisplayName.textContent = "Messenger — " + currentNickname;
+        loadMessages();
+      });
+
+      function loadMessages() {
+        chatDiv.innerHTML = "";
+        chatRef.off();
+
+        chatRef.on("child_added", snapshot => {
+          const msg = snapshot.val();
+
+          const bubble = document.createElement("div");
+          bubble.classList.add("p-3", "rounded-xl", "max-w-xs", "text-white", "break-words", "transition-all", "duration-200");
+
+          if (msg.user === currentNickname) {
+            bubble.classList.add("bg-green-500", "self-end", "ml-auto");
+          } else {
+            bubble.classList.add("bg-pink-500", "self-start", "mr-auto");
+          }
+
+          bubble.textContent = `${msg.user}: ${shortenMessage(msg.text)}`;
+          chatDiv.appendChild(bubble);
+          chatDiv.scrollTop = chatDiv.scrollHeight;
+
+          if (msg.user !== currentNickname) {
+            notifSound.play();
+            sendSystemNotification("Messenger", `${msg.user}: ${shortenMessage(msg.text)}`);
+          }
         });
-        </script>
-        
-        
+      }
+
+      messageForm.addEventListener("submit", e => {
+        e.preventDefault();
+        const text = messageInput.value.trim();
+        if (!text) return;
+
+        chatRef.push({
+          user: currentNickname,
+          text: text,
+          time: Date.now()
+        });
+
+        messageInput.value = "";
+      });
+    };
+  </script>
 </body>
 </html>
